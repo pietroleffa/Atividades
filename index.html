@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+       
+       // Inicializando uma lista, a lista de alunos
+        var listadeAlununos = [];
+        
+        //Inicializando um contador de alunos
+        var contadeiro = 0;
+          
+        
+        // laço de repetição infito
+        while(true){
+            
+            //Inicializando o objeto que guardará os dados do aluno
+            listadeAlununos[contadeiro] = new Array();
+
+            // Ler os dados dos alunos
+            listadeAlununos [contadeiro] ['nome'] = prompt ("Insira o nome do " + (contadeiro +1 ) + "º aluno:");
+    
+            listadeAlununos[contadeiro] ['n1'] = prompt ("Insira a nora do primeiro semestre:");
+            listadeAlununos[contadeiro] ['n2'] = prompt ("Insira a nora do segundo semestre:");
+            listadeAlununos[contadeiro] ['freq'] = prompt ("Insira a frequencia:");
+            
+            console.log("Dados informados:");
+            console.log(listadeAlununos[contadeiro]);
+
+           // O teste parada do laço
+            if(!confirm("Deseja informar mais um item ?")) {
+                break;
+
+            }
+             contadeiro++;      
+        }   
+
+        // Exibe dados que foram coletados
+        for(aluno in listadeAlununos){
+            console.log(aluno [('nome')])
+        }
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
