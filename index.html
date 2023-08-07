@@ -7,7 +7,7 @@
     <script>
        
        // Inicializando uma lista, a lista de alunos
-        var listadeAlununos = [];
+        var listaDeAlunos = [];
         
         //Inicializando um contador de alunos
         var contadeiro = 0;
@@ -17,17 +17,26 @@
         while(true){
             
             //Inicializando o objeto que guardará os dados do aluno
-            listadeAlununos[contadeiro] = new Array();
+            listaDeAlunos[contadeiro] = new Array();
 
             // Ler os dados dos alunos
-            listadeAlununos [contadeiro] ['nome'] = prompt ("Insira o nome do " + (contadeiro +1 ) + "º aluno:");
-    
-            listadeAlununos[contadeiro] ['n1'] = prompt ("Insira a nora do primeiro semestre:");
-            listadeAlununos[contadeiro] ['n2'] = prompt ("Insira a nora do segundo semestre:");
-            listadeAlununos[contadeiro] ['freq'] = prompt ("Insira a frequencia:");
+            listaDeAlunos [contadeiro] ['nome'] = prompt ("Insira o nome do " + (contadeiro +1 ) + "º aluno:");
+           
+            var nota  = parseFloat (prompt ("Insira a nota do primeiro semestre:"));
+            while(nota < 0 || nota > 10) 
+                nota = prompt("Nota inválida ! Insira um valor entre 0 a 10")
+            listaDeAlunos[contadeiro] ['n1'] = nota;
+            
+            var nota  = parseFloat (prompt ("Insira a nota do segundo semestre:"));
+            while(nota < 0 || nota > 10) 
+                  nota = prompt("Nota inválida ! Insira um valor entre 0 a 10")
+            listaDeAlunos[contadeiro] ['n2'] = nota;
+            
+            
+            listaDeAlunos[contadeiro] ['freq'] = prompt ("Insira a frequencia:");
             
             console.log("Dados informados:");
-            console.log(listadeAlununos[contadeiro]);
+            console.log(listaDeAlunos[contadeiro]);
 
            // O teste parada do laço
             if(!confirm("Deseja informar mais um item ?")) {
@@ -38,16 +47,19 @@
         }   
 
         // Exibe dados que foram coletados
-        for(aluno in listadeAlununos){
+        for(aluno in listaDeAlunos){
             console.log(aluno [('nome')])
         }
 
     </script>
     <style>
-        table { border: solid 2px black;
-                border-collapse: collapse;
-              }
-              table.thead{background-color:yellow;}
+            
+         table {border-collapse: collapse;}
+         table.th {background-color:sandybrown}
+         td, th {border: solid 2px black; padding: 5px; text-align: center;}
+         th:first-child { background: white ; border: 0 }
+         .aprovado td  {background-color:greenyellow ;}
+         .reprovado td {background-color: pink;}
 
     </style>
 </head>
@@ -56,9 +68,10 @@
         <h1>Boletim</h1>
     </header>
     <session>
-        <table>
+        <table border="0">
             <thead>
                 <tr>
+                    <th ></th>
                     <th>Nome</th>
                     <th>1º semestre</th>
                     <th>2º semestre</th>
@@ -66,7 +79,47 @@
                     <th>Frequência</th>
                 </tr>
             </thead>
+            <tbody id="area-dos-alunos">
+
+            </tbody>
         </table>
     </session>
 </body>
 </html>
+
+<script type="text/javascript">
+
+var tabela = document.getElementById("area-dos-alunos");
+console.log(tabela.innerHTML);
+ 
+      // Exibe dados que foeam coletados
+      listaDeAlunos.forEach(function(aluno, index){
+         console.log(aluno);
+
+        // Calcular a media final do aluno
+        var media= (parseFloat(aluno['n1']) + parseFloat(aluno['n2'])) / 2;
+
+        //  Validando se o aluno foi aprovado
+        if(media >= 7 && parseFloat(aluno ['freq']) > 70)
+            // Inserundo nova linha na tabela
+            var dados = "<tr class='aprovado'>";
+        else
+             // Inserundo nova linha vermelha na tabela
+             var dados = "<tr class='reprovado'>";
+
+
+        // Inserindo os dados do aluno na tabela
+        dados += "<td>" + (index+1) + "</td>";
+        dados += "<td>" + aluno ['nome'] + "</td>";
+        dados += "<td>" + parseFloat (aluno['n1']).toFixe(1) + "</td>";
+        dados += "<td>" + parseFloat (aluno['n2']).toFixe(1) + "</td>";
+        dados += "<td>" + media.toFixed(1) + "</td>";
+        dados += "<td>" + aluno ['freq'] + "%</td>";
+     
+        // Fechando a linha
+        dados += "<tr>";
+        // Inserindo efetivamente no html
+        tabela.innerHTML += dados;
+     })
+
+</script>
